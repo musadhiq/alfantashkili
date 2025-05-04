@@ -1,0 +1,272 @@
+@use './variables' as *;
+
+/* Typography */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-lg {
+  font-size: $font-size-lg; // e.g., 1.25rem
+}
+
+.text-md {
+  font-size: $font-size-md; // e.g., 1rem
+}
+
+.text-sm {
+  font-size: $font-size-sm; // e.g., 0.875rem
+}
+
+.text-muted {
+  color: $color-text-light;
+}
+
+/* Spacing */
+.mt-0 {
+  margin-top: 0;
+}
+
+.mt-sm {
+  margin-top: $spacing-sm;
+}
+
+.mt-md {
+  margin-top: $spacing-md;
+}
+
+.mt-lg {
+  margin-top: $spacing-lg;
+}
+
+.mb-sm {
+  margin-bottom: $spacing-sm;
+}
+
+.mb-md {
+  margin-bottom: $spacing-md;
+}
+
+.mb-lg {
+  margin-bottom: $spacing-lg;
+}
+
+.p-sm {
+  padding: $spacing-sm;
+}
+
+.p-md {
+  padding: $spacing-md;
+}
+
+.p-lg {
+  padding: $spacing-lg;
+}
+
+.py-sm {
+  padding-top: $spacing-sm;
+  padding-bottom: $spacing-sm;
+}
+
+.px-md {
+  padding-left: $spacing-md;
+  padding-right: $spacing-md;
+}
+.py-md{
+  padding-top: $spacing-md;
+  padding-bottom: $spacing-md;
+}
+.my-md{
+  margin-top: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+.py-lg{
+  padding-top: $spacing-lg;
+  padding-bottom: $spacing-lg;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+/* Flexbox */
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+/* Buttons */
+.btn {
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $color-accent;
+  color: $color-white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: $shadow-light;
+    opacity: 0.95;
+  }
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: $color-accent;
+  border: 2px solid $color-accent;
+
+  &:hover {
+    background-color: $color-accent;
+    color: $color-white;
+  }
+}
+
+/* Card */
+.card {
+  background-color: $color-surface;
+  border-radius: $border-radius-lg;
+  padding: $spacing-md;
+  box-shadow: $shadow-xs;
+}
+
+/* Borders */
+.border {
+  border: 1px solid $color-border;
+}
+
+.rounded {
+  border-radius: $border-radius;
+}
+
+.shadow {
+  box-shadow: $shadow-light;
+}
+
+@mixin primary-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: $color-primary;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.90;
+  }
+}
+
+.primary-btn-sm {
+  @include primary-btn;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.primary-btn-md {
+  @include primary-btn;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.primary-btn-lg {
+  @include primary-btn;
+  padding: 12px 24px;
+  font-size: 18px;
+}
+
+.secondary-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: $color-white;
+  border: 1px solid $color-text-light;
+  color: #7F5AF0;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.90;
+  }
+}
+
+@mixin title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2D2A32;
+}
+
+.main-title-lg {
+  @include title;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.main-title-md {
+  @include title;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.main-title-sm {
+  @include title;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.sub-title-sm {
+  @include title;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2D2A32;
+}
+.sub-title-md {
+  @include title;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2D2A32;
+}
+.sub-title-lg {
+  @include title;
+  font-size: 18px;
+  font-weight: 500;
+  color: #2D2A32;
+}
