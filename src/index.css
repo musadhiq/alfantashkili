@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+input[type="range"] {
+    -webkit-appearance: none;
+    background: transparent;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 9999px;
+    background: #ef4444;
+    border: 2px solid white;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 9999px;
+    background: #ef4444;
+    border: 2px solid white;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  

@@ -1,0 +1,20 @@
+@use '../variables' as *;
+
+.product-list {
+  padding: $spacing-sm;
+  .header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-md;
+a{
+  text-decoration: none;
+}
+    .title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $color-primary;
+    }
+  }
+
+}
