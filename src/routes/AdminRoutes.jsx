@@ -3,35 +3,35 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Dashboard from "../pages/admin/Dashboard";
 import LoginPage from "../pages/admin/loginPage";
 import ProductForm from "../pages/admin/addProduct";
+import AdminLayout from "../pages/admin/AdminLayout"; // create this if not already present
 
 const AdminRoutes = [
   {
-    path: "/admin/dashboard",
+    path: "/admin",
     element: (
       <ProtectedRoute>
-        <Dashboard/>
+        <AdminLayout />
       </ProtectedRoute>
     ),
-  },
-  {
-    path: "/admin/add-product",
-    element: (
-      <ProtectedRoute>
-        <ProductForm/>
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/admin/edit-product/:id",
-    element: (
-      <ProtectedRoute>
-        <ProductForm/>
-      </ProtectedRoute>
-    ),
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "add-product",
+        element: <ProductForm />,
+      },
+      {
+        path: "edit-product/:id",
+        element: <ProductForm />,
+      },
+    ],
   },
   {
     path: "/auth/login",
-    element: <LoginPage/>,
+    element: <LoginPage />,
   },
 ];
+
 export default AdminRoutes;
