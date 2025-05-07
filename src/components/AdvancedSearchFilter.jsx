@@ -13,18 +13,19 @@ const priceOptions = [
 ];
 
 
-function AdvancedSearchFilter({withClearButton = false}) {
+function AdvancedSearchFilter({ withClearButton = false }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     const { categories } = useSelector((state) => state.categories);
     const [brands, setBrands] = useState([]);
-    const [models, setModels] = useState([]);
     // Local component state for form fields
     const [localCategory, setLocalCategory] = useState('');
     const [localBrand, setLocalBrand] = useState('');
     const [localModel, setLocalModel] = useState('');
+    const [localVarient, setLocalVarient] = useState('');
+    const [localYear, setLocalYear] = useState('');
     // const [localPriceRange, setLocalPriceRange] = useState([0, 1000]);
 
     // Initialize from URL on mount
@@ -34,19 +35,21 @@ function AdvancedSearchFilter({withClearButton = false}) {
         const initialCategory = params.get('category') || '';
         const initialBrand = params.get('brand') || '';
         const initialModel = params.get('model') || '';
-        // const priceMin = parseInt(params.get('priceMin')) || 0;
-        // const priceMax = parseInt(params.get('priceMax')) || 1000;
+        const initialVarient = params.get('varient') || '';
+        const initialYear = params.get('year') || '';
+
+
 
         setLocalCategory(initialCategory);
         setLocalBrand(initialBrand);
         setLocalModel(initialModel);
-        // setLocalPriceRange([priceMin, priceMax]);
 
         dispatch(updateFilters({
             category: initialCategory,
             brand: initialBrand,
             model: initialModel,
-            // priceRange: [priceMin, priceMax],
+            variant: initialVarient,
+            year: initialYear,
         }));
     }, [location.search, dispatch]);
 
@@ -56,13 +59,6 @@ function AdvancedSearchFilter({withClearButton = false}) {
         });
     }, []);
 
-    useEffect(() => {
-        if (localBrand) {
-            fetchVehicleModelByBrand(localBrand).then((data) => {
-                setModels(data);
-            })
-        }
-    }, [localBrand])
 
 
 
@@ -76,16 +72,6 @@ function AdvancedSearchFilter({withClearButton = false}) {
             return [];
         }
     };
-
-    const fetchVehicleModelByBrand = async (brand) => {
-        try {
-            const response = await apiClient.get(`/api/v1/brand-models/?brandName=${brand}`);
-            return response.data?.contents || [];
-        } catch (error) {
-            console.error(error);
-            return []
-        }
-    }
 
     const handleSearch = () => {
         const params = new URLSearchParams();
@@ -103,6 +89,8 @@ function AdvancedSearchFilter({withClearButton = false}) {
             category: localCategory,
             brand: localBrand,
             model: localModel,
+            variant: localVarient,
+            year: localYear,
             // priceRange: localPriceRange,
         }));
 
@@ -114,12 +102,16 @@ function AdvancedSearchFilter({withClearButton = false}) {
         setLocalCategory('');
         setLocalBrand('');
         setLocalModel('');
+        setLocalVarient('');
+        setLocalYear('');
         // setLocalPriceRange([0, 1000]);
 
         dispatch(updateFilters({
             category: '',
             brand: '',
             model: '',
+            variant: '',
+            year: '',
             // priceRange: [0, 1000],
         }));
         navigate('/store');
@@ -144,28 +136,42 @@ function AdvancedSearchFilter({withClearButton = false}) {
                         <option key={c.id} value={c.name}>{c.name}</option>
                     ))}
                 </select>
+                    <select
+                        value={localBrand}
+                        onChange={(e) => setLocalBrand(e.target.value)}
+                        className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                        <option value="">Brand</option>
+                        {brands.map((b) => (
+                            <option key={b.id} value={b.name}>{b.name}</option>
+                        ))}
+                    </select>
+                    <input
+                        type="text"
+                        value={localModel}
+                        onChange={(e) => setLocalModel(e.target.value)}
+                        className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Model"
+                    />
 
-                <select
-                    value={localBrand}
-                    onChange={(e) => setLocalBrand(e.target.value)}
-                    className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                >
-                    <option value="">Brand</option>
-                    {brands.map((b) => (
-                        <option key={b.id} value={b.name}>{b.name}</option>
-                    ))}
-                </select>
+                <div className="flex gap-1">
 
-                <select
-                    value={localModel}
-                    onChange={(e) => setLocalModel(e.target.value)}
-                    className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                >
-                    <option value="">Model</option>
-                    {models.map((m) => (
-                        <option key={m.id} value={m.name}>{m.name}</option>
-                    ))}
-                </select>
+                    <input
+                        type="text"
+                        value={localVarient}
+                        onChange={(e) => setLocalVarient(e.target.value)}
+                        className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="variant"
+                    />
+                    <input
+                        type="text"
+                        value={localYear}
+                        onChange={(e) => setLocalYear(e.target.value)}
+                        className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Year"
+                    />
+                </div>
+
 
             </div>
 

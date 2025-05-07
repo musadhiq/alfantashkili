@@ -20,7 +20,6 @@ const breadcrumbItems = [
 const api = {
     category: `/api/v1/categories`,
     brand: `/api/v1/brands`,
-    model: `/api/v1/brand-models/`
 }
 
 function addProduct() {
@@ -33,7 +32,9 @@ function addProduct() {
         description: '',
         categoryName: '',
         brandName: '',
-        modelName: '',
+        model: '',
+        variant: '',
+        year: null,
         stock: '',
         unit: '',
         price: '',
@@ -77,7 +78,9 @@ function addProduct() {
                 contactInfo: rest.contactInfo,
                 description: rest.description,
                 metadata: rest.metadata,
-                modelName: rest.vehicleModel.name,
+                model: rest.model,
+                variant: rest.variant,
+                year: rest.year,
                 price: rest.price,
                 stock: rest.stock,
                 title: rest.title, 
@@ -182,7 +185,9 @@ function addProduct() {
             description: '',
             categoryName: '',
             brandName: '',
-            modelName: '',
+            model: '',
+            variant: '',
+            year: null,
             stock: '',
             unit: '',
             price: '',
@@ -239,7 +244,9 @@ function addProduct() {
                             </div>
                             <div className="form-wrapper mb-lg">
                                 <CreateSelector label="Brand" name={'brandName'} onChange={handleChange} value={product.brandName} api={api.brand} />
-                                <CreateSelector label="Model" name={'modelName'} onChange={handleChange} value={product.modelName} api={api.model} query={`brandName=${product.brandName}`} disabled={!product.brandName} />
+                                <Input required label="Model" name={'model'} value={product.model} onChange={handleChange} />
+                                <Input   label="Variant" name={'variant'} value={product.variant} onChange={handleChange} />
+                                <Input type='number' label="Year" name={'year'} value={product.year} onChange={handleChange} />
                             </div>
                             <div>
                                 <Input label="Contact Information" name={'contactInfo'} value={product.contactInfo} onChange={handleChange} />

@@ -3,7 +3,7 @@ import Table from "./Table";
 import "../styles/pages/productList.scss";
 import { Link } from "react-router-dom";
 import apiClient from "../lib/apiService";
-import { Eye, Funnel, LayoutGrid, Pencil, Trash2, TableProperties } from "lucide-react";
+import { Eye, Pencil, Trash2, TableProperties } from "lucide-react";
 import DeleteConfirmModal from "./ui/DeleteConfirmModal";
 import ProductCard from "./ProductCard";
 import Pagination from "./ui/Pagination";
@@ -13,8 +13,7 @@ const columns = [
   { label: "Product Name", field: "title" },
   { label: "Catagory", field: "category" },
   { label: "Description", field: "description" },
-  { label: "Brand Name", field: "brand" },
-  { label: "Model", field: "model" },
+  { label: "Vehicle", field: "vehicle" },
   { label: "Stock", field: "stock" },
   { label: "Price", field: "price" },
   { label: "Actions", field: "actions" },
@@ -64,6 +63,8 @@ const ProductList = () => {
       const data = res.data.contents || [];
 
       const productData = data.map((item) => {
+        const brand = item.brand.name;
+        const vehicle = `${brand} ${item.model || ""} ${item.variant || ""} ${item.year || ""}`
         return {
           id: item.id,
           title: item.title,
@@ -71,8 +72,7 @@ const ProductList = () => {
           description: item.description,
           stock: `${item.stock} ${item.unit}`,
           price: item.price,
-          brand: item.brand.name,
-          model: item.vehicleModel.name,
+          vehicle
         }
       })
 

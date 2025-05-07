@@ -28,11 +28,13 @@ function ProductCard({ product }) {
       <div className="bg-white rounded-xl shadow-sm overflow-hidden border flex flex-col product-card h-[300px]">
         {/* Image Section */}
         <div className="w-full h-48  flex justify-center items-center card-image-container">
-          <Image
-            src={imageUrl || productPlaceholder}
+          {imageUrl ? <Image
+            src={imageUrl}
             alt={product.title}
-            className={`object-contain w-full h-full p-[1px] ${imageUrl == null ? 'placeHolder' : ''}`}
-          />
+            className={`object-contain w-full h-full p-[1px]`}
+          /> : (
+            <img src={productPlaceholder} alt="Product" className={`object-contain w-full h-full p-[1px] placeHolder`}></img>
+          )}
         </div>
         {/* Info Section */}
         <div className="flex flex-col justify-between p-4 flex-1">
@@ -41,7 +43,7 @@ function ProductCard({ product }) {
             <h3 className="text-base font-semibold text-gray-800">{product.title}</h3>
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <Car className="w-4 h-4 text-gray-500" />
-              <span className="font-medium">{product.brand.name || 'N/A'}  ({product.vehicleModel?.name || ""})</span>
+              <span className="font-medium">{product.brand.name || 'N/A'}  {product.model || ""} {product.variant} {product.year} </span>
             </div>
           </div>
 
@@ -53,7 +55,7 @@ function ProductCard({ product }) {
                 {product.price}
               </span>
               <div className="flex gap-2">
-                <button className=" text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500"  onClick={openDetailedModal}>
+                <button className=" text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500" onClick={openDetailedModal}>
                   <ShoppingCart size={15} />
                 </button>
 
@@ -62,7 +64,7 @@ function ProductCard({ product }) {
           </div>
         </div>
       </div>
-      <ProductDetailModal open={openModal} onClose={() => setOpenModal(false)} product={product}/>
+      <ProductDetailModal open={openModal} onClose={() => setOpenModal(false)} product={product} />
     </>
   );
 }
