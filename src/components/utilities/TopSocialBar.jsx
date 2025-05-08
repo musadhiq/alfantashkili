@@ -1,6 +1,7 @@
 import FacebookIcon from "../../assets/social/facebook.svg";
 import InstagramIcon from "../../assets/social/instagram.svg";
 import TwitterIcon from "../../assets/social/x.svg";
+import GoogleTranslate from "./GoogleTranslate";
 
 const TopSocialBar = () => {
     return (
@@ -29,6 +30,7 @@ const TopSocialBar = () => {
                             className="w-4 h-4 filter invert"
                         />
                     </a>
+                    <GoogleTranslate/>
                 </div>
             </div>
         </div>
