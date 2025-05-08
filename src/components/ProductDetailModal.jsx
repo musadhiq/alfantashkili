@@ -15,7 +15,7 @@ const ProductDetailModal = ({ open, onClose, product }) => {
     if (!open || !product) return null;
 
     const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
-    const whatsappMessage = `I%20am%20interested%20in%20the%20product%20${product.title}%20and%20would%20like%20to%20inquire.`;
+    const whatsappMessage = `I%20am%20interested%20in%20the%20product%20${product.title}%20and%20would%20like%20to%20Enquire.`;
 
     const cdnUrl = import.meta.env.VITE_CDN_HOST || "";
 
@@ -109,7 +109,7 @@ const ProductDetailModal = ({ open, onClose, product }) => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Layers className="w-4 h-4" />
-                                <span className="font-medium">Category:</span> {product.category.name}
+                                <span className="font-medium">Category:</span> {product.category?.name || "N/A"}
                             </div>
                             <div className="flex items-center gap-2">
                                 <Box className="w-4 h-4" />
@@ -121,7 +121,7 @@ const ProductDetailModal = ({ open, onClose, product }) => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Car className="w-4 h-4" />
-                                <span className="font-medium">Vehicle:</span> {product.brand.name} {product.vehicleModel.name}
+                                <span className="font-medium">Vehicle:</span> {product.brand?.name || ""} {product.model} {product.variant} {product.year}
                             </div>
                             <div className="flex items-center gap-2">
                                 <Phone className="w-4 h-4" />
