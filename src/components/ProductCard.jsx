@@ -43,7 +43,7 @@ function ProductCard({ product }) {
             <h3 className="text-base font-semibold text-gray-800">{product.title}</h3>
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <Car className="w-4 h-4 text-gray-500" />
-              <span className="font-medium">{product.brand.name || 'N/A'}  {product.model || ""} {product.variant} {product.year} </span>
+              <span className="font-medium">{product.brand?.name || 'N/A'}  {product.model || ""} {product.variant} {product.year} </span>
             </div>
           </div>
 
