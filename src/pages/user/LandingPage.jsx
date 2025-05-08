@@ -58,7 +58,7 @@ function LandingPage() {
     <>
       <HeroSection />
       <section className="w-full bg-white pt-4">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="max-w-[1400px] mx-auto px-1">
           <h1 className='text-2xl font-semibold mb-3'>Products</h1>
           <CatagoryFilter type="tab" handleValueChange={handleCatagoryChange} />
           {

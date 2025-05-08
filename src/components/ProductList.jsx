@@ -63,12 +63,12 @@ const ProductList = () => {
       const data = res.data.contents || [];
 
       const productData = data.map((item) => {
-        const brand = item.brand.name;
+        const brand = item.brand?.name || "";
         const vehicle = `${brand} ${item.model || ""} ${item.variant || ""} ${item.year || ""}`
         return {
           id: item.id,
           title: item.title,
-          category: item.category.name,
+          category: item.category?.name || "No Category",
           description: item.description,
           stock: `${item.stock} ${item.unit}`,
           price: item.price,
@@ -179,12 +179,6 @@ const ProductList = () => {
   const renderActions = (row) => {
     return (
       <div className="flex gap-4">
-        <button
-          onClick={() => handleEdit(row.id)}
-          className="text-gray-500 hover:text-blue-700"
-        >
-          <Eye size={17} />
-        </button>
         <Link to={`/admin/edit-product/${row.id}`} className="text-secondary hover:text-blue-700">
           <Pencil size={17} />
         </Link>
