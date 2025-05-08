@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="max-w-[1440px] mx-auto px-6 py-10 flex flex-col lg:flex-row justify-around gap-10">
         {/* Company Info */}
         <div className="lg:w-3/4">
-          <h4 className="text-base font-semibold mb-3">alfan altashkili</h4>
+          <h4 className="text-base font-semibold mb-3">ALFAN ALTASHKILI</h4>
           <p className="text-xs leading-relaxed mb-2">
             Alfantashkili is your trusted destination for high-quality second-hand car parts. We bring affordability and reliability together in one store.
           </p>

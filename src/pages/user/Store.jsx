@@ -20,7 +20,7 @@ function Store() {
 
     const [loading, setLoading] = useState(false);
 
-    const { category, brand, model, priceRange, search } = useSelector((state) => state.filters);
+    const { category, brand, model, priceRange, search, year, variant } = useSelector((state) => state.filters);
     const fetchProducts = async (filters = pagination) => {
         try {
             setLoading(true);
@@ -45,7 +45,7 @@ function Store() {
 
     useEffect(() => {
         fetchProducts()
-    }, [category, brand, model, priceRange, search])
+    }, [category, brand, model, search, variant, year])
 
     useEffect(() => {
         setTotalPages(Math.ceil(pagination.rowsNumber / pagination.pageSize))
@@ -59,7 +59,9 @@ function Store() {
 
         if (category) query += `&category=${category}`;
         if (brand) query += `&brand=${brand}`;
-        if (model) query += `&vehicleModel=${model}`;
+        if (model) query += `&model=${model}`;
+        if (variant) query += `&variant=${variant}`;
+        if (year) query += `&year=${year}`
         if (search) query += `&searchText=${search}`
         return query
     }

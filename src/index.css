@@ -29,3 +29,20 @@ input[type="range"] {
     pointer-events: auto;
   }
   
+
+  /* Hide Google Translate top banner and iframe */
+.goog-te-banner-frame.skiptranslate,
+body > .skiptranslate {
+  display: none !important;
+}
+
+/* Remove extra space added by Google */
+body {
+  top: 0px !important;
+}
+
+/* Optional: Hide mini Google logo */
+.goog-logo-link,
+.goog-te-gadget span {
+  display: none !important;
+}

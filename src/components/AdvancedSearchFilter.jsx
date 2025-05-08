@@ -13,7 +13,7 @@ const priceOptions = [
 ];
 
 
-function AdvancedSearchFilter({withClearButton = false}) {
+function AdvancedSearchFilter({ withClearButton = false }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,10 +21,13 @@ function AdvancedSearchFilter({withClearButton = false}) {
     const { categories } = useSelector((state) => state.categories);
     const [brands, setBrands] = useState([]);
     const [models, setModels] = useState([]);
+    const [varients, setVarients] = useState([]);
     // Local component state for form fields
     const [localCategory, setLocalCategory] = useState('');
     const [localBrand, setLocalBrand] = useState('');
     const [localModel, setLocalModel] = useState('');
+    const [localVarient, setLocalVarient] = useState('');
+    const [localYear, setLocalYear] = useState('');
     // const [localPriceRange, setLocalPriceRange] = useState([0, 1000]);
 
     // Initialize from URL on mount
@@ -34,19 +37,23 @@ function AdvancedSearchFilter({withClearButton = false}) {
         const initialCategory = params.get('category') || '';
         const initialBrand = params.get('brand') || '';
         const initialModel = params.get('model') || '';
-        // const priceMin = parseInt(params.get('priceMin')) || 0;
-        // const priceMax = parseInt(params.get('priceMax')) || 1000;
+        const initialVarient = params.get('varient') || '';
+        const initialYear = params.get('year') || '';
+
+
 
         setLocalCategory(initialCategory);
         setLocalBrand(initialBrand);
         setLocalModel(initialModel);
-        // setLocalPriceRange([priceMin, priceMax]);
+        setLocalVarient(initialVarient);
+        setLocalYear(initialYear);
 
         dispatch(updateFilters({
             category: initialCategory,
             brand: initialBrand,
             model: initialModel,
-            // priceRange: [priceMin, priceMax],
+            variant: initialVarient,
+            year: initialYear,
         }));
     }, [location.search, dispatch]);
 
@@ -57,12 +64,21 @@ function AdvancedSearchFilter({withClearButton = false}) {
     }, []);
 
     useEffect(() => {
-        if (localBrand) {
-            fetchVehicleModelByBrand(localBrand).then((data) => {
-                setModels(data);
-            })
+        if (!localBrand) {
+            setModels([]);
+            return;
         }
-    }, [localBrand])
+        fetchModels()
+    }, [localBrand]);
+
+
+    useEffect(() => {
+        if (!localModel) {
+            setVarients([]);
+            return;
+        }
+        fetchVarients()
+    }, [localModel]);
 
 
 
@@ -77,13 +93,35 @@ function AdvancedSearchFilter({withClearButton = false}) {
         }
     };
 
-    const fetchVehicleModelByBrand = async (brand) => {
+    const fetchModels = async () => {
         try {
-            const response = await apiClient.get(`/api/v1/brand-models/?brandName=${brand}`);
-            return response.data?.contents || [];
+            const query = `?groupBy=model&brand=${localBrand}`
+            const data = await getProductGrouped(query)
+            setModels(data.contents || [])
         } catch (error) {
             console.error(error);
-            return []
+            setModels([])
+        }
+    };
+
+    const fetchVarients = async () => {
+        try {
+            const query = `?groupBy=variant&brand=${localBrand}&model=${localModel}`
+            const data = await getProductGrouped(query)
+            setVarients(data.contents || [])
+        } catch (error) {
+            console.error(error);
+            setVarients([])
+        }
+    };
+
+    const getProductGrouped = async (query) =>{
+        try{
+            const response = await apiClient.get(`/api/v1/products/grouped${query}&orderBy=createdAt`);
+            return response.data;
+        }catch(error){
+            console.error(error)
+            return [];
         }
     }
 
@@ -93,17 +131,16 @@ function AdvancedSearchFilter({withClearButton = false}) {
         if (localCategory) params.append('category', localCategory);
         if (localBrand) params.append('brand', localBrand);
         if (localModel) params.append('model', localModel);
-        // if (localPriceRange.length === 2) {
-        //     params.append('priceMin', localPriceRange[0]);
-        //     params.append('priceMax', localPriceRange[1]);
-        // }
+        if (localVarient) params.append('varient', localVarient);
+        if (localYear) params.append('year', localYear);
 
         // Dispatch to Redux
         dispatch(updateFilters({
             category: localCategory,
             brand: localBrand,
             model: localModel,
-            // priceRange: localPriceRange,
+            variant: localVarient,
+            year: localYear,
         }));
 
         // Navigate with URL params
@@ -114,13 +151,15 @@ function AdvancedSearchFilter({withClearButton = false}) {
         setLocalCategory('');
         setLocalBrand('');
         setLocalModel('');
-        // setLocalPriceRange([0, 1000]);
+        setLocalVarient('');
+        setLocalYear('');
 
         dispatch(updateFilters({
             category: '',
             brand: '',
             model: '',
-            // priceRange: [0, 1000],
+            variant: '',
+            year: '',
         }));
         navigate('/store');
     };
@@ -144,7 +183,6 @@ function AdvancedSearchFilter({withClearButton = false}) {
                         <option key={c.id} value={c.name}>{c.name}</option>
                     ))}
                 </select>
-
                 <select
                     value={localBrand}
                     onChange={(e) => setLocalBrand(e.target.value)}
@@ -163,9 +201,31 @@ function AdvancedSearchFilter({withClearButton = false}) {
                 >
                     <option value="">Model</option>
                     {models.map((m) => (
-                        <option key={m.id} value={m.name}>{m.name}</option>
+                        <option key={m} value={m}>{m}</option>
                     ))}
                 </select>
+
+                <div className="flex gap-1">
+
+                <select
+                    value={localVarient}
+                    onChange={(e) => setLocalVarient(e.target.value)}
+                    className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                    <option value="">Variant</option>
+                    {varients.map((v) => (
+                        <option key={v} value={v}>{v}</option>
+                    ))}
+                </select>
+                    <input
+                        type="text"
+                        value={localYear}
+                        onChange={(e) => setLocalYear(e.target.value)}
+                        className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Year"
+                    />
+                </div>
+
 
             </div>
 

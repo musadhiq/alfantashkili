@@ -5,6 +5,8 @@ const initialState = {
     brand: '',
     model: '',
     search: '',
+    variant: '',
+    year: '',
 };
 
 const filtersSlice = createSlice({

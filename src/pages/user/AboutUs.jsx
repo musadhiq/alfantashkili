@@ -11,7 +11,7 @@ import {
   const AboutUs = () => {
     return (
       <div className="max-w-[1440px] mx-auto px-6 py-16 text-zinc-800">
-        <h1 className="text-3xl md:text-4xl font-bold mb-6">About <span className="text-red-600">al fan altashkili</span></h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-6">About <span className="text-red-600">ALFAN ALTASHKILI</span></h1>
         <p className="text-base text-zinc-600 max-w-3xl mb-12 leading-relaxed">
           At <strong>Alfantashkili</strong>, we specialize in sourcing and delivering reliable second-hand car parts across Oman.
           Our mission is to make automotive repair affordable and accessible, without compromising on quality.
