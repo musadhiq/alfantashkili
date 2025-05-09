@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const GoogleTranslate = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("ar");
 
   // Automatically detect language from the browser or fallback to 'en'
   useEffect(() => {
