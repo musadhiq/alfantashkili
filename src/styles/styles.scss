@@ -389,12 +389,8 @@ body {
       align-items: center;
       overflow: hidden;
     }
-    img.placeHolder{
-        opacity: 0.1;
-        width: 70%;
-        mix-blend-mode: multiply;
-    }
-  }
+}
+
 
   .scroll-hidden::-webkit-scrollbar {
     display: none;
@@ -405,3 +401,8 @@ body {
     scrollbar-width: none; /* Firefox */
   }
   
+
+  img.placeHolder{
+    opacity: 0.1;
+    mix-blend-mode: multiply;
+}

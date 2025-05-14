@@ -6,7 +6,7 @@ function Dashboard() {
   return (
     <div>
         <div className="wrapper landing-page">
-        <ProductList/>
+        
         </div>
     </div>
   )
