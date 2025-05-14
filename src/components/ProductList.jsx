@@ -3,10 +3,11 @@ import Table from "./Table";
 import "../styles/pages/productList.scss";
 import { Link } from "react-router-dom";
 import apiClient from "../lib/apiService";
-import { Eye, Pencil, Trash2, TableProperties } from "lucide-react";
+import { Star, Pencil, Trash2, TableProperties } from "lucide-react";
 import DeleteConfirmModal from "./ui/DeleteConfirmModal";
 import ProductCard from "./ProductCard";
 import Pagination from "./ui/Pagination";
+import SetFeaturedModal from "./products/SetFeaturedModal";
 
 
 const columns = [
@@ -19,11 +20,27 @@ const columns = [
   { label: "Actions", field: "actions" },
 ];
 
+const StarFill = ({ size = 18, color = "currentColor", ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill={color}
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.401 8.175L12 18.896l-7.335 3.871 1.401-8.175L.132 9.21l8.2-1.192L12 .587z" />
+  </svg>
+);
+
 const ProductList = () => {
 
   const [currentView, setCurrentView] = useState("list");
   const [showDeleteModel, setShowDeleteModel] = useState(false);
   const [products, setProducts] = useState([]);
+  const [showFeaturedModal, setShowFeaturedModal] = useState(false);
+  const [featuredLoading, setFeaturedLoading] = useState(false);
+  const featuredProduct = useRef(null);
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -72,7 +89,9 @@ const ProductList = () => {
           description: item.description,
           stock: `${item.stock} ${item.unit}`,
           price: item.price,
-          vehicle
+          vehicle,
+          featured: item.featured,
+          tag: item.tag
         }
       })
 
@@ -84,6 +103,11 @@ const ProductList = () => {
       }));
       console.error(error);
     }
+  };
+
+  const handleSetFeatured = (item) => {
+    setShowFeaturedModal(true);
+    featuredProduct.current = item;
   };
 
   const generateQuery = (filters) => {
@@ -99,6 +123,22 @@ const ProductList = () => {
       query += `&searchText=${encodeURIComponent(searchText)}`;
     }
     return query;
+  };
+
+  const updateFeaturedProduct = async (data) => {
+    try {
+      setFeaturedLoading(true);
+      await apiClient.patch(`/api/v1/products/${data.id}`, {
+        featured: data.featured,
+        tag: data.tag,
+      });
+      setShowFeaturedModal(false);
+      fetchProducts(); // refresh the list
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setFeaturedLoading(false);
+    }
   };
 
 
@@ -177,8 +217,18 @@ const ProductList = () => {
 
 
   const renderActions = (row) => {
+    console.log(row)
     return (
       <div className="flex gap-4">
+        {row.tag && <span className="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+          {row.tag}
+        </span>}
+        <button
+          onClick={() => handleSetFeatured(row)}
+          className="text-yellow-500 hover:text-yellow-600"
+        >
+          {row.featured ? <StarFill size={17} /> : <Star size={17} />}
+        </button>
         <Link to={`/admin/edit-product/${row.id}`} className="text-secondary hover:text-blue-700">
           <Pencil size={17} />
         </Link>
@@ -261,6 +311,14 @@ const ProductList = () => {
         onClose={() => setShowDeleteModel(false)}
         onConfirm={deleteProduct}
         loading={deleteLoading}
+      />
+
+      <SetFeaturedModal
+        open={showFeaturedModal}
+        onClose={() => setShowFeaturedModal(false)}
+        onSave={updateFeaturedProduct}
+        loading={featuredLoading}
+        product={featuredProduct.current}
       />
     </div>
   );

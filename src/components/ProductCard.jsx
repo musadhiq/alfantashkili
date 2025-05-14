@@ -55,8 +55,8 @@ function ProductCard({ product }) {
                 {product.price}
               </span>
               <div className="flex gap-2">
-                <button className=" text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500" onClick={openDetailedModal}>
-                  <ShoppingCart size={15} />
+                <button className="flex gap-2 items-center text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500" onClick={openDetailedModal}>
+                 <span>Shop Now</span> <ShoppingCart size={15} />
                 </button>
 
               </div>

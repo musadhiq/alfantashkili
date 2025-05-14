@@ -39,6 +39,8 @@ function addProduct() {
         unit: '',
         price: '',
         contactInfo: '',
+        featured: false,
+        tag: "",
         metadata: {}
     });
 
@@ -68,10 +70,10 @@ function addProduct() {
             const response = await apiClient.get(`/api/v1/products/${productId}`);
             const productData = response.data;
 
-            
+
             // Destructure images from the response
             const { images: fetchedImages = [], ...rest } = productData;
-            
+
             setProduct({
                 brandName: rest.brand.name,
                 categoryName: rest.category.name,
@@ -83,8 +85,10 @@ function addProduct() {
                 year: rest.year,
                 price: rest.price,
                 stock: rest.stock,
-                title: rest.title, 
+                title: rest.title,
                 unit: rest.unit,
+                featured: rest.featured,
+                tag: rest.tag,
             });
 
             setProductImages(fetchedImages)
@@ -142,7 +146,7 @@ function addProduct() {
             const response = await apiClient.put(`/api/v1/products/${id}`, formData);
             if (response.status === 200) {
                 await uploadProductImages(response.data.id);
-            }else{
+            } else {
                 alertService.error("Product Update Failed");
             }
         } catch (error) {
@@ -192,6 +196,8 @@ function addProduct() {
             unit: '',
             price: '',
             contactInfo: '',
+            featured: false,
+            tag: "",
             metadata: {}
         });
         setImages({
@@ -231,88 +237,88 @@ function addProduct() {
                     <div className="add-product-form">
                         <h1 className="main-title-sm">Add Product</h1>
                     </div>
-                        <div className="card p-sm">
-                            <h1 className="sub-title-md mb-md">
-                                Basic Information
-                            </h1>
-                            <div className="form-wrapper">
-                                <Input required label="Product Title" name={'title'} value={product.title} onChange={handleChange} />
-                                <CreateSelector label="Catagory" name={'categoryName'} onChange={handleChange} value={product.categoryName} api={api.category} />
-                            </div>
-                            <div className="mt-md mb-lg">
-                                <Textarea label="Description" name={'description'} value={product.description} onChange={handleChange} />
-                            </div>
-                            <div className="form-wrapper mb-lg">
-                                <CreateSelector label="Brand" name={'brandName'} onChange={handleChange} value={product.brandName} api={api.brand} />
-                                <Input required label="Model" name={'model'} value={product.model} onChange={handleChange} />
-                                <Input   label="Variant" name={'variant'} value={product.variant} onChange={handleChange} />
-                                <Input type='number' label="Year" name={'year'} value={product.year} onChange={handleChange} />
-                            </div>
-                            <div>
-                                <Input label="Contact Information" name={'contactInfo'} value={product.contactInfo} onChange={handleChange} />
-                            </div>
+                    <div className="card p-sm">
+                        <h1 className="sub-title-md mb-md">
+                            Basic Information
+                        </h1>
+                        <div className="form-wrapper">
+                            <Input required label="Product Title" name={'title'} value={product.title} onChange={handleChange} />
+                            <CreateSelector label="Catagory" name={'categoryName'} onChange={handleChange} value={product.categoryName} api={api.category} />
                         </div>
-                        <div className="card p-sm mt-lg">
-                            <h1 className="sub-title-md mb-md">
-                                Pricing & Inventory
-                            </h1>
-                            <div className="form-wrapper">
-                                <Input label="Stock Quantity" name={'stock'} value={product.stock} onChange={handleChange} />
-                                <Input label="Unit Type" name={'unit'} value={product.unit} onChange={handleChange} />
-                            </div>
-                            <div className=" mb-lg">
-                                <Input label="Price" name={'price'} value={product.price} onChange={handleChange} />
-                            </div>
+                        <div className="mt-md mb-lg">
+                            <Textarea label="Description" name={'description'} value={product.description} onChange={handleChange} />
                         </div>
-                        <div className="card p-sm mt-lg" >
-                            <h1 className="sub-title-md mb-md">
-                                Media
-                            </h1>
-                            {
-                                productImages && productImages.filter((image) => image.type === 'COVER').length === 0 && (
-                                    <div className="mt-md mb-lg">
-                                        <ImageUploader label="Product Cover Image" name={'coverImage'} value={images.coverImage} onChange={handleFileUpload} />
-                                    </div>
-                                )
-                            }
-                            {editMode && productImages.length > 0 && (
-                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-                                    {productImages.map((image, index) => (
-                                        <div key={index} className="relative border rounded p-2 bg-white shadow-sm">
-                                            <img
-                                                src={image.url}
-                                                alt={`Product ${index}`}
-                                                className="w-full h-40 object-cover rounded"
-                                            />
-
-                                            {/* Label */}
-                                            <span className="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-0.5 rounded-s-none rounded-sm">
-                                                {image.type === 'COVER' ? 'Cover Image' : 'Gallery'}
-                                            </span>
-
-                                            {/* Delete Button */}
-                                            <button
-                                                onClick={(e) => handleDeleteImage(e, image.id)}
-                                                className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white rounded-md w-6 h-6 text-xs flex items-center justify-center"
-                                                title="Delete image"
-                                            >
-                                                <Trash2 size={14} />
-                                            </button>
-                                        </div>
-                                    ))}
+                        <div className="form-wrapper mb-lg">
+                            <CreateSelector label="Brand" name={'brandName'} onChange={handleChange} value={product.brandName} api={api.brand} />
+                            <Input required label="Model" name={'model'} value={product.model} onChange={handleChange} />
+                            <Input label="Variant" name={'variant'} value={product.variant} onChange={handleChange} />
+                            <Input type='number' label="Year" name={'year'} value={product.year} onChange={handleChange} />
+                        </div>
+                        <div>
+                            <Input label="Contact Information" name={'contactInfo'} value={product.contactInfo} onChange={handleChange} />
+                        </div>
+                    </div>
+                    <div className="card p-sm mt-lg">
+                        <h1 className="sub-title-md mb-md">
+                            Pricing & Inventory
+                        </h1>
+                        <div className="form-wrapper">
+                            <Input label="Stock Quantity" name={'stock'} value={product.stock} onChange={handleChange} />
+                            <Input label="Unit Type" name={'unit'} value={product.unit} onChange={handleChange} />
+                        </div>
+                        <div className=" mb-lg">
+                            <Input label="Price" name={'price'} value={product.price} onChange={handleChange} />
+                        </div>
+                    </div>
+                    <div className="card p-sm mt-lg" >
+                        <h1 className="sub-title-md mb-md">
+                            Media
+                        </h1>
+                        {
+                            productImages && productImages.filter((image) => image.type === 'COVER').length === 0 && (
+                                <div className="mt-md mb-lg">
+                                    <ImageUploader label="Product Cover Image" name={'coverImage'} value={images.coverImage} onChange={handleFileUpload} />
                                 </div>
-                            )}
+                            )
+                        }
+                        {editMode && productImages.length > 0 && (
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+                                {productImages.map((image, index) => (
+                                    <div key={index} className="relative border rounded p-2 bg-white shadow-sm">
+                                        <img
+                                            src={image.url}
+                                            alt={`Product ${index}`}
+                                            className="w-full h-40 object-cover rounded"
+                                        />
 
-                            <div className="mt-md mb-lg">
-                                <MultiImageUploader label="Product Images" name={'galleryImages'} value={images.galleryImages} onChange={handleFileUpload} />
+                                        {/* Label */}
+                                        <span className="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-0.5 rounded-s-none rounded-sm">
+                                            {image.type === 'COVER' ? 'Cover Image' : 'Gallery'}
+                                        </span>
+
+                                        {/* Delete Button */}
+                                        <button
+                                            onClick={(e) => handleDeleteImage(e, image.id)}
+                                            className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white rounded-md w-6 h-6 text-xs flex items-center justify-center"
+                                            title="Delete image"
+                                        >
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
+                        )}
+
+                        <div className="mt-md mb-lg">
+                            <MultiImageUploader label="Product Images" name={'galleryImages'} value={images.galleryImages} onChange={handleFileUpload} />
+                        </div>
 
 
-                        </div>
-                        <div className="add-product-actions py-md">
-                            <button className="btn secondary-btn">Cancel</button>
-                            <button className="btn primary-btn-md" onClick={handleSubmit}>Save</button>
-                        </div>
+                    </div>
+                    <div className="add-product-actions py-md">
+                        <button className="btn secondary-btn">Cancel</button>
+                        <button className="btn primary-btn-md" onClick={handleSubmit}>Save</button>
+                    </div>
                 </div>
             </div>
             <LoaderModal show={loading} message={preLoaderMessage} />

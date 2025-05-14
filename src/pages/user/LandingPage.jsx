@@ -8,11 +8,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../../store/thunks/productThunks'
 import ProductFallBack from '../../components/ProductsFallback'
 import { sendEmail } from '../../services/emailService'
+import FeaturedProducts from '../../components/products/FeaturedProducts'
+import CategoryCards from '../../components/CategoryCards'
 
 
 function LandingPage() {
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.product);
+  const { products } = useSelector((state) => state.product);
   const [selectedCatagory, setSelectedCatagory] = useState('All');
   const [userPhone, setUserPhone] = useState("");
   const [userMessage, setUserMessage] = useState("");
@@ -56,8 +58,12 @@ function LandingPage() {
 
   return (
     <>
-      <HeroSection />
       <section className="w-full bg-white pt-4">
+        <HeroSection />
+        <FeaturedProducts />
+        <div className="mt-8">
+          <CategoryCards />
+        </div>
         <div className="max-w-[1400px] mx-auto px-1">
           <h1 className='text-2xl font-semibold mb-3'>Products</h1>
           <CatagoryFilter type="tab" handleValueChange={handleCatagoryChange} />

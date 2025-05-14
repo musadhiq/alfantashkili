@@ -8,10 +8,6 @@ const GoogleTranslate = () => {
 
   // Automatically detect language from the browser or fallback to 'en'
   useEffect(() => {
-    const browserLang = navigator.language || navigator.userLanguage;
-    const detectedLang = browserLang.startsWith("ar") ? "ar" : "en";
-    setLanguage(detectedLang);
-
     // Set Google Translate script and configuration
     const script = document.createElement("script");
     script.src =
@@ -32,7 +28,7 @@ const GoogleTranslate = () => {
     };
 
     // Set Google Translate cookie to apply language
-    document.cookie = `googtrans=/en/${detectedLang};path=/`;
+    document.cookie = `googtrans=/en/${language};path=/`;
   }, []);
 
   const handleLanguageChange = (e) => {
