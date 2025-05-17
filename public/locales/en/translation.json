@@ -22,8 +22,27 @@
     "button": "Search"
   },
   "hero": {
-    "title": "Parts That Power Your Journey",
-    "subtitle": "Gradually work your way up to more intense games as",
+    "titleFirst": "Parts That Power",
+    "titleSecond": "Your Journey",
+    "subtitle": "Gradually work your way up to more",
+    "subtitle2": "intense games as",
     "button": "Shop now"
+  },
+  "FeaturedProducts": {
+    "title": "Featured Products"
+  },
+  "categoryCards": {
+    "engine": {
+      "title": "Engine Parts",
+      "description": "Enhance your engine performance with high-quality components that offer durability and power."
+    },
+    "auto": {
+      "title": "Auto Parts",
+      "description": "Find a wide range of auto parts designed for optimal performance and reliability."
+    },
+    "steering": {
+      "title": "Steering Wheels",
+      "description": "Upgrade your driving experience with precision-engineered steering wheels for better control and comfort."
+    }
   }
 }

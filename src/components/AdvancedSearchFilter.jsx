@@ -6,14 +6,6 @@ import apiClient from '../lib/apiService';
 import { useTranslation } from 'react-i18next';
 
 
-const priceOptions = [
-    { label: 'Below 500', value: [0, 500] },
-    { label: '500 – 1000', value: [500, 1000] },
-    { label: '1000 – 5000', value: [1000, 5000] },
-    { label: 'Above 5000', value: [5000, 100000] },
-];
-
-
 function AdvancedSearchFilter({ withClearButton = false }) {
     const { t } = useTranslation();
     const dispatch = useDispatch();
