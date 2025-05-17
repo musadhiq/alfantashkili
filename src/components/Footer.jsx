@@ -14,7 +14,7 @@ const Footer = () => {
           <p className="text-xs leading-relaxed mb-2">
             Alfantashkili is your trusted destination for high-quality second-hand car parts. We bring affordability and reliability together in one store.
           </p>
-          <p className="text-xs">© {new Date().getFullYear()} All rights reserved.</p>
+          <p className="text-xs" translate="no">© {new Date().getFullYear()} All rights reserved.</p>
         </div>
 
         <div className="lg:w-1/3">
@@ -22,17 +22,17 @@ const Footer = () => {
           <div className="text-xs space-y-3">
             <div className="flex items-start gap-2">
               <MapPin className="w-4 h-4 text-red-400 mt-[2px]" />
-              <p>Behind Al Maha Mktg. - Al buraimi -S. of Oman</p>
+              <p translate="no">Behind Al Maha Mktg. - Al buraimi -S. of Oman</p>
             </div>
 
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-red-400" />
-              <span>+968 9413 0119</span>
+              <span translate="no">+968 9413 0119</span>
             </div>
 
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-red-400" />
-              <span>alfantashkili@gmail.com</span>
+              <span translate="no">alfantashkili@gmail.com</span>
             </div>
           </div>
         </div>

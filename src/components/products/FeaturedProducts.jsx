@@ -71,7 +71,7 @@ function FeaturedProducts() {
                                     {imageUrl ? (
                                         <Image
                                             src={imageUrl}
-                                            alt={item.title}
+                                            alt={item.title?.en}
                                             className="object-cover w-full h-full p-[1px]"
                                         />
                                     ) : (
@@ -87,7 +87,7 @@ function FeaturedProducts() {
                                         </span>
                                     )}
                                     <div className="absolute bottom-0 left-0 w-full bg-white bg-opacity-80 p-4">
-                                        <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.title}</h3>
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.title?.en}</h3>
                                         <p className="text-sm text-gray-600 mb-2">
                                             {[item.brand?.name, item.model, item.variant, item.year].filter(Boolean).join(' • ')}
                                             {item.brand?.name || 'Brand'} • {item.model || 'Model'}

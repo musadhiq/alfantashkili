@@ -1,0 +1,29 @@
+{
+  "advancedFilter": {
+    "title": "Advanced search filter",
+    "subtitle": "Filter your results by entering your Vehicle to ensure you find the parts that fit."
+  },
+  "category": {
+    "label": "Category"
+  },
+  "brand": {
+    "label": "Brand"
+  },
+  "model": {
+    "label": "Model"
+  },
+  "variant": {
+    "label": "Variant"
+  },
+  "year": {
+    "label": "Year"
+  },
+  "search": {
+    "button": "Search"
+  },
+  "hero": {
+    "title": "Parts That Power Your Journey",
+    "subtitle": "Gradually work your way up to more intense games as",
+    "button": "Shop now"
+  }
+}

@@ -84,9 +84,9 @@ const ProductList = () => {
         const vehicle = `${brand} ${item.model || ""} ${item.variant || ""} ${item.year || ""}`
         return {
           id: item.id,
-          title: item.title,
+          title: item.title?.en,
           category: item.category?.name || "No Category",
-          description: item.description,
+          description: item.description?.en,
           stock: `${item.stock} ${item.unit}`,
           price: item.price,
           vehicle,

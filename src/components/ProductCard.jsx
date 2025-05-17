@@ -40,10 +40,10 @@ function ProductCard({ product }) {
         <div className="flex flex-col justify-between p-4 flex-1">
           {/* Title & Description */}
           <div>
-            <h3 className="text-base font-semibold text-gray-800">{product.title}</h3>
+            <h3 className="text-base font-semibold text-gray-800">{product.title?.en}</h3>
             <div className="flex items-center gap-2 text-xs text-gray-500">
               <Car className="w-4 h-4 text-gray-500" />
-              <span className="font-medium">{product.brand?.name || 'N/A'}  {product.model || ""} {product.variant} {product.year} </span>
+              <span className="font-medium" translate="no">{product.brand?.name || 'N/A'}  {product.model || ""} {product.variant} {product.year} </span>
             </div>
           </div>
 
@@ -55,7 +55,7 @@ function ProductCard({ product }) {
                 {product.price}
               </span>
               <div className="flex gap-2">
-                <button className="flex gap-2 items-center text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500" onClick={openDetailedModal}>
+                <button className="flex gap-2 items-center text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500 text-xs" onClick={openDetailedModal}>
                  <span>Shop Now</span> <ShoppingCart size={15} />
                 </button>
 

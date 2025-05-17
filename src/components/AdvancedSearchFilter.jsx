@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { updateFilters } from '../features/products/filtersSlice';
 import apiClient from '../lib/apiService';
+import { useTranslation } from 'react-i18next';
 
 
 const priceOptions = [
@@ -14,6 +15,7 @@ const priceOptions = [
 
 
 function AdvancedSearchFilter({ withClearButton = false }) {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -167,9 +169,9 @@ function AdvancedSearchFilter({ withClearButton = false }) {
 
     return (
         <div className="bg-white border rounded-xl shadow-sm p-6 h-auto">
-            <h3 className="text-lg font-semibold mb-2">Advanced search filter</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('advancedFilter.title')}</h3>
             <p className="text-sm text-zinc-600 mb-6">
-                Filter your results by entering your Vehicle to ensure you find the parts that fit.
+                {t('advancedFilter.subtitle')}
             </p>
 
             <div className="space-y-6 mb-8 mt-10">
@@ -178,7 +180,7 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                     onChange={(e) => setLocalCategory(e.target.value)}
                     className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
-                    <option value="">Category</option>
+                    <option value="">{t('category.label')}</option>
                     {categories.map((c) => (
                         <option key={c.id} value={c.name}>{c.name}</option>
                     ))}
@@ -188,9 +190,9 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                     onChange={(e) => setLocalBrand(e.target.value)}
                     className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
-                    <option value="">Brand</option>
+                    <option value="">{t('brand.label')}</option>
                     {brands.map((b) => (
-                        <option key={b.id} value={b.name}>{b.name}</option>
+                        <option key={b.id} value={b.name} translate="no">{b.name}</option>
                     ))}
                 </select>
 
@@ -199,9 +201,9 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                     onChange={(e) => setLocalModel(e.target.value)}
                     className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
-                    <option value="">Model</option>
+                    <option value="">{t('model.label')}</option>
                     {models.map((m) => (
-                        <option key={m} value={m}>{m}</option>
+                        <option key={m} value={m} translate="no">{m}</option>
                     ))}
                 </select>
 
@@ -212,9 +214,9 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                     onChange={(e) => setLocalVarient(e.target.value)}
                     className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
-                    <option value="">Variant</option>
+                    <option value="">{t('variant.label')}</option>
                     {varients.map((v) => (
-                        <option key={v} value={v}>{v}</option>
+                        <option key={v} value={v} translate="no">{v}</option>
                     ))}
                 </select>
                     <input
@@ -222,7 +224,7 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                         value={localYear}
                         onChange={(e) => setLocalYear(e.target.value)}
                         className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                        placeholder="Year"
+                        placeholder={t('year.label')}
                     />
                 </div>
 
@@ -233,7 +235,7 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                 onClick={handleSearch}
                 className="w-full bg-red-600 hover:bg-red-700 text-white text-sm font-medium py-3 rounded-md transition"
             >
-                Search
+                {t('search.button')}
             </button>
             {withClearButton && <button
                 onClick={handleClear}

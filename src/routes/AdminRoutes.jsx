@@ -1,6 +1,5 @@
 // routes/AdminRoutes.js
 import ProtectedRoute from "../components/ProtectedRoute";
-import Dashboard from "../pages/admin/Dashboard";
 import LoginPage from "../pages/admin/loginPage";
 import ProductForm from "../pages/admin/addProduct";
 import AdminLayout from "../pages/admin/AdminLayout"; // create this if not already present

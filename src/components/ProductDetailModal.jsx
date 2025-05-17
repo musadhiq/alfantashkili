@@ -121,7 +121,10 @@ const ProductDetailModal = ({ open, onClose, product }) => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Car className="w-4 h-4" />
-                                <span className="font-medium">Vehicle:</span> {product.brand?.name || ""} {product.model} {product.variant} {product.year}
+                                <span className="font-medium">Vehicle:</span> 
+                                <span translate="no">
+                                {product.brand?.name || ""} {product.model} {product.variant} {product.year}
+                                </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Phone className="w-4 h-4" />
