@@ -30,7 +30,7 @@ const TopNavbar = () => {
 
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2">
-                    <img src={LogoImage} alt="Logo" className="w-16 h-12 object-cover filter bg-black rounded-lg" />
+                    <img src={LogoImage} alt="Logo" className="w-14 h-10 object-cover" />
                     <span className=" font-semibold sm:text-base text-xs">ALFAN ALTASHKILI</span>
                 </Link>
 

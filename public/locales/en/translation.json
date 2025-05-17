@@ -44,5 +44,65 @@
       "title": "Steering Wheels",
       "description": "Upgrade your driving experience with precision-engineered steering wheels for better control and comfort."
     }
+  },
+  "productDetail": {
+    "title": "Product Details",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "category": "Category",
+      "stock": "Stock",
+      "price": "Price",
+      "vehicle": "Vehicle",
+      "contact": "Contact"
+    },
+    "actions": {
+      "whatsapp": "WhatsApp",
+      "enquire": "Enquire Now"
+    },
+    "enquiry": {
+      "title": "Enquire About Product",
+      "placeholder": "Enter your phone number or email",
+      "send": "Send",
+      "sending": "Sending..."
+    },
+    "errors": {
+      "noContact": "Please enter your contact number."
+    }
+  },
+  "inquirySection": {
+    "title": "Can't find what you're looking for?",
+    "description": "Fill in your contact details and leave a note with your requirements. Our team will review it and reach out with the best options available.",
+    "form": {
+      "contactNumber": "Contact Number",
+      "contactPlaceholder": "Enter your phone number or email",
+      "note": "Note",
+      "notePlaceholder": "Enter your Message",
+      "send": "Send Request"
+    }
+  },
+  "promoSection":{
+    "title":"Got a broken car? We’ve got the fix.",
+    "description":"Whether it’s a shattered headlight, a faulty engine part, or a missing bumper, we help you get your car back on the road without breaking the bank. Our massive inventory of second-hand parts is quality-checked and priced just right. Select your vehicle, filter by model or brand, and explore thousands of genuine parts ready for delivery. No more long waits or overpriced components—only what fits, when you need it.",
+    "button":"Start Searching Now"
+  },
+  "common": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "shopnow": "Shop Now",
+    "explore":"Explore our store",
+    "brandName": "Alfan Altashkili"
+  },
+  "footer": {
+    "description": "Alfantashkili is your trusted destination for high-quality second-hand car parts. We bring affordability and reliability together in one store.",
+    "copyright": "© 2025 All rights reserved.",
+    "contactUs": "Contact Us",
+    "address": "Behind Al Maha Mktg. - Al buraimi -S. of Oman",
+    "phone": "+968 9413 0119",
+    "email": "alfantashkili@gmail.com",
+    "quickLinks": "Quick Links",
+    "store": "Store",
+    "aboutUs": "About Us",
+    "contact": "Contact"
   }
 }

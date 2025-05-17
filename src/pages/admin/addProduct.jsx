@@ -11,6 +11,7 @@ import { Trash2 } from 'lucide-react';
 import DeleteConfirmModal from '../../components/ui/DeleteConfirmModal';
 import CreateSelector from '../../components/createSelector';
 import alertService from '../../services/alertService';
+import TranslatableInput from '../../components/ui/TranslatableInput';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/admin/dashboard' },
@@ -242,11 +243,11 @@ function addProduct() {
                             Basic Information
                         </h1>
                         <div className="form-wrapper">
-                            <Input required label="Product Title" name={'title'} value={product.title} onChange={handleChange} />
+                            <TranslatableInput required label="Product Title" name={'title'} value={product.title} onChange={handleChange} />
                             <CreateSelector label="Catagory" name={'categoryName'} onChange={handleChange} value={product.categoryName} api={api.category} />
                         </div>
                         <div className="mt-md mb-lg">
-                            <Textarea label="Description" name={'description'} value={product.description} onChange={handleChange} />
+                            <TranslatableInput label="Description" name={'description'} value={product.description} onChange={handleChange} />
                         </div>
                         <div className="form-wrapper mb-lg">
                             <CreateSelector label="Brand" name={'brandName'} onChange={handleChange} value={product.brandName} api={api.brand} />
