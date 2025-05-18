@@ -81,17 +81,18 @@
       "send": "Send Request"
     }
   },
-  "promoSection":{
-    "title":"Got a broken car? We’ve got the fix.",
-    "description":"Whether it’s a shattered headlight, a faulty engine part, or a missing bumper, we help you get your car back on the road without breaking the bank. Our massive inventory of second-hand parts is quality-checked and priced just right. Select your vehicle, filter by model or brand, and explore thousands of genuine parts ready for delivery. No more long waits or overpriced components—only what fits, when you need it.",
-    "button":"Start Searching Now"
+  "promoSection": {
+    "title": "Got a broken car? We’ve got the fix.",
+    "description": "Whether it’s a shattered headlight, a faulty engine part, or a missing bumper, we help you get your car back on the road without breaking the bank. Our massive inventory of second-hand parts is quality-checked and priced just right. Select your vehicle, filter by model or brand, and explore thousands of genuine parts ready for delivery. No more long waits or overpriced components—only what fits, when you need it.",
+    "button": "Start Searching Now"
   },
   "common": {
     "close": "Close",
     "cancel": "Cancel",
     "shopnow": "Shop Now",
-    "explore":"Explore our store",
-    "brandName": "Alfan Altashkili"
+    "explore": "Explore our store",
+    "brandName": "Alfan Altashkili",
+    "help": "Call us"
   },
   "footer": {
     "description": "Alfantashkili is your trusted destination for high-quality second-hand car parts. We bring affordability and reliability together in one store.",
@@ -104,5 +105,27 @@
     "store": "Store",
     "aboutUs": "About Us",
     "contact": "Contact"
+  },
+  "about": {
+    "aboutTitle": "About",
+      "aboutDescription": "we specialize in sourcing and delivering reliable second-hand car parts across Oman. Our mission is to make automotive repair affordable and accessible, without compromising on quality. Whether you're a mechanic, workshop owner, or a vehicle enthusiast — we’re here to help you get the parts you need, fast and fairly priced.",
+    "features": {
+      "genuineParts": {
+        "title": "Genuine Used Parts",
+        "description": "We source and inspect every part to ensure it's in top working condition — saving you money while maintaining performance."
+      },
+      "trustedQuality": {
+        "title": "Trusted Quality",
+        "description": "Our inventory is curated by experts. Every part is tested and verified to meet quality standards before it's sold."
+      },
+      "customerFirst": {
+        "title": "Customer-First Approach",
+        "description": "We’re here to support you. Our customer support team is ready to answer your questions and assist with orders."
+      }
+    },
+    "visitWarehouse": {
+      "title": "Visit Our Warehouse",
+      "address": "Behind Al Maha Mktg. - Al buraimi - S. of Oman"
+    }
   }
 }
