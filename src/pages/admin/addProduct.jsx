@@ -24,7 +24,7 @@ const api = {
 }
 
 function addProduct() {
-
+      const cdnUrl = import.meta.env.VITE_CDN_HOST || "";
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -91,8 +91,12 @@ function addProduct() {
                 featured: rest.featured,
                 tag: rest.tag,
             });
+            const productImgs = fetchedImages?.map((img)=>{
+                img.imageUrl = img?.StorageType === 'CLOUD' ? `${cdnUrl}${img.path}` : img?.url || null
 
-            setProductImages(fetchedImages)
+                return img
+            })
+            setProductImages(productImgs)
         } catch (error) {
             console.error('Failed to fetch product:', error);
         }
@@ -287,7 +291,7 @@ function addProduct() {
                                 {productImages.map((image, index) => (
                                     <div key={index} className="relative border rounded p-2 bg-white shadow-sm">
                                         <img
-                                            src={image.url}
+                                            src={image.imageUrl}
                                             alt={`Product ${index}`}
                                             className="w-full h-40 object-cover rounded"
                                         />
