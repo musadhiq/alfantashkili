@@ -1,27 +1,31 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import AutoPartsImg from '../assets/auto-parts.png';
 import EngineImg from '../assets/engine.png';
 import SteeringWheelsImg from '../assets/steering.png';
 
-const categories = [
-  {
-    title: 'Engine Parts',
-    description: 'Enhance your engine performance with high-quality components that offer durability and power.',
-    image: EngineImg,
-  },
-  {
-    title: 'Auto Parts',
-    description: 'Find a wide range of auto parts designed for optimal performance and reliability.',
-    image: AutoPartsImg,
-  },
-  {
-    title: 'Steering Wheels',
-    description: 'Upgrade your driving experience with precision-engineered steering wheels for better control and comfort.',
-    image: SteeringWheelsImg,
-  },
-];
-
 const CategoryCards = () => {
+  const { t } = useTranslation();
+
+  const categories = [
+    {
+      title: t('categoryCards.engine.title'),
+      description: t('categoryCards.engine.description'),
+      image: EngineImg,
+    },
+    {
+      title: t('categoryCards.auto.title'),
+      description: t('categoryCards.auto.description'),
+      image: AutoPartsImg,
+    },
+    {
+      title: t('categoryCards.steering.title'),
+      description: t('categoryCards.steering.description'),
+      image: SteeringWheelsImg,
+    },
+  ];
+
   return (
     <section className="py-10 bg-white">
       <div className="max-w-[1440px] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

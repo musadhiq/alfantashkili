@@ -1,5 +1,4 @@
 import AboutUs from "../pages/user/AboutUs";
-import ContactUs from "../pages/user/ContactUs";
 import LandingPage from "../pages/user/LandingPage";
 import Store from "../pages/user/Store";
 import UserLayout from "../pages/user/UserLayout";
@@ -20,11 +19,7 @@ const UserRoutes = [
       {
         path: "about-us",
         element: <AboutUs />,
-      },
-      {
-        path: "contact-us",
-        element: <ContactUs />,
-      },
+      }
     ],
   },
 ];

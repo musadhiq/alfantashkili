@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateFilters } from "../../features/products/filtersSlice";
+import { useTranslation } from "react-i18next";
 
 const TopNavbar = () => {
-
+    const { t } = useTranslation()
     const [searchInput, setSearchInput] = useState('');
     const dispatch = useDispatch()
 
@@ -30,8 +31,8 @@ const TopNavbar = () => {
 
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2">
-                    <img src={LogoImage} alt="Logo" className="w-16 h-12 object-cover filter bg-black rounded-lg" />
-                    <span className=" font-semibold sm:text-base text-xs">ALFAN ALTASHKILI</span>
+                    <img src={LogoImage} alt="Logo" className="w-14 h-10 object-cover" />
+                    <span className=" font-semibold sm:text-base text-xs">{t("common.brandName")}</span>
                 </Link>
 
                 {/* Search Input */}
@@ -39,13 +40,13 @@ const TopNavbar = () => {
                     <form onSubmit={handlesearch}>
                         <input
                             type="text"
-                            placeholder="Search our store..."
+                            placeholder={t("search.button")}
                             value={searchInput}
                             onChange={handleSearchChange}
                             className="w-full bg-zinc-100 border border-zinc-300 rounded-lg px-4 py-2 pr-10 text-sm placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500"
                         />
                         <button className="absolute right-[-30px] top-[15px] -translate-y-1/2 w-4 h-4 text-zinc-500 cursor-pointer"
-                        onClick={handlesearch}
+                            onClick={handlesearch}
                         >
 
                             <Search />
@@ -55,14 +56,14 @@ const TopNavbar = () => {
 
                 {/* Help Button */}
                 <a href="tel:+96894130119" className="p-2 rounded-lg hover:bg-zinc-100 transition border border-zinc-300 flex items-center gap-2 text-xs">
-                    <PhoneCall className="w-5 h-5 text-zinc-700" /> <span>Call Us</span>
+                    <PhoneCall className="w-5 h-5 text-zinc-700" /> <span>{t("common.help")}</span>
                 </a>
             </div>
             <div className="flex-1 md:hidden max-w-md w-full relative pt-3">
                 <form onSubmit={handlesearch}>
                     <input
                         type="text"
-                        placeholder="Search our store..."
+                        placeholder={t("search.button")}
                         value={searchInput}
                         onChange={handleSearchChange}
                         className="w-full bg-zinc-100 border border-zinc-300 rounded-lg px-4 py-2 pr-10 text-sm placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500"

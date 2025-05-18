@@ -30,7 +30,7 @@ function NavBar() {
   return (
     <div className="nav-bar-container flex justify-between items-center px-4 py-2  border-b">
       <div className="flex items-center gap-2">
-        <img src={LogoImage} alt="Logo" className="w-14 h-10 object-cover filter bg-black rounded-lg" />
+        <img src={LogoImage} alt="Logo" className="w-14 h-10 object-cover filter  rounded-lg" />
         <span className="text-base font-semibold">Alfantashkili</span>
       </div>
 

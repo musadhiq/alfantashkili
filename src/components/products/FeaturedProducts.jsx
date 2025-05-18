@@ -5,12 +5,14 @@ import productPlaceholder from '../../assets/productPlaceholder.jpg';
 import Image from '../ui/Image';
 import apiClient from '../../lib/apiService';
 import ProductDetailModal from '../ProductDetailModal';
+import { useTranslation } from 'react-i18next';
 
 
 function FeaturedProducts() {
+    const { t } = useTranslation();
     const cdnUrl = import.meta.env.VITE_CDN_HOST || "";
     const [products, setProducts] = useState([]);
-      const [openModal, setOpenModal] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         fetchProducts();
@@ -47,7 +49,7 @@ function FeaturedProducts() {
     return (
         <section className="max-w-[1440px] mx-auto px-4 my-16">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold text-gray-800">Featured Products</h2>
+                <h2 className="text-2xl font-semibold text-gray-800">{t("FeaturedProducts.title")}</h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 auto-rows-fr">
@@ -71,7 +73,7 @@ function FeaturedProducts() {
                                     {imageUrl ? (
                                         <Image
                                             src={imageUrl}
-                                            alt={item.title}
+                                            alt={item.title?.en}
                                             className="object-cover w-full h-full p-[1px]"
                                         />
                                     ) : (
@@ -87,7 +89,7 @@ function FeaturedProducts() {
                                         </span>
                                     )}
                                     <div className="absolute bottom-0 left-0 w-full bg-white bg-opacity-80 p-4">
-                                        <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.title}</h3>
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.title?.en}</h3>
                                         <p className="text-sm text-gray-600 mb-2">
                                             {[item.brand?.name, item.model, item.variant, item.year].filter(Boolean).join(' • ')}
                                             {item.brand?.name || 'Brand'} • {item.model || 'Model'}
@@ -97,8 +99,8 @@ function FeaturedProducts() {
                                                 <DollarSign className="w-4 h-4" />
                                                 {item.price}
                                             </p>
-                                            <button className="flex gap-2 items-center text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500" onClick={()=> setOpenModal(true)}>
-                                                <span>Shop Now</span> <ShoppingCart size={15} />
+                                            <button className="flex gap-2 items-center text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500" onClick={() => setOpenModal(true)}>
+                                                <span>{t("hero.button")}</span> <ShoppingCart size={15} />
                                             </button>
                                             <ProductDetailModal open={openModal} onClose={() => setOpenModal(false)} product={item} />
                                         </div>

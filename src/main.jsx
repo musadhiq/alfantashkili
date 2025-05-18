@@ -6,6 +6,7 @@ import { store } from './store/store.js'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from "react-router-dom";
 import './index.css';
+import './localization/i18n.js';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
