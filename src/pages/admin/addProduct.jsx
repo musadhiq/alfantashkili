@@ -76,8 +76,8 @@ function addProduct() {
             const { images: fetchedImages = [], ...rest } = productData;
 
             setProduct({
-                brandName: rest.brand.name,
-                categoryName: rest.category.name,
+                brandName: rest.brand?.name,
+                categoryName: rest.category?.name,
                 contactInfo: rest.contactInfo,
                 description: rest.description,
                 metadata: rest.metadata,

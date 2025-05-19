@@ -1,4 +1,4 @@
-import { DollarSign, ShoppingCart } from 'lucide-react';
+import {  ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import ProductCard from '../ProductCard';
 import productPlaceholder from '../../assets/productPlaceholder.jpg';
@@ -74,7 +74,7 @@ function FeaturedProducts() {
                                         <Image
                                             src={imageUrl}
                                             alt={item.title?.en}
-                                            className="object-cover w-full h-full p-[1px]"
+                                            className="object-contain w-full h-full p-[1px]"
                                         />
                                     ) : (
                                         <img
@@ -96,8 +96,7 @@ function FeaturedProducts() {
                                         </p>
                                         <div className="flex items-center justify-between">
                                             <p className="text-red-600 font-semibold text-lg flex items-center gap-1">
-                                                <DollarSign className="w-4 h-4" />
-                                                {item.price}
+                                                OMR {item.price}
                                             </p>
                                             <button className="flex gap-2 items-center text-white bg-red-600 rounded-md px-3 py-2 hover:bg-red-500" onClick={() => setOpenModal(true)}>
                                                 <span>{t("hero.button")}</span> <ShoppingCart size={15} />
