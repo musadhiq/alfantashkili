@@ -21,6 +21,13 @@
   "search": {
     "button": "Search"
   },
+  "messages": {
+    "selectBrandFirst": "Please select a brand first",
+    "selectModelFirst": "Please select a model first"
+  },
+  "filter": {
+    "clear": "Clear Filters"
+  },
   "hero": {
     "titleFirst": "Parts That Power",
     "titleSecond": "Your Journey",

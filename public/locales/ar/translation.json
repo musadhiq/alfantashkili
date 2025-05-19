@@ -21,6 +21,13 @@
   "search": {
     "button": "بحث"
   },
+  "messages": {
+    "selectBrand": "يرجى اختيار العلامة التجارية أولاً",
+    "selectModel": "يرجى اختيار الطراز أولاً"
+  },
+  "filter": {
+    "clear": "إعادة التصفية"
+  },
   "hero": {
     "titleFirst": "قطع غيار تعزز",
     "titleSecond": "رحلتك",

@@ -5,7 +5,6 @@ import { updateFilters } from '../features/products/filtersSlice';
 import apiClient from '../lib/apiService';
 import { useTranslation } from 'react-i18next';
 
-
 function AdvancedSearchFilter({ withClearButton = false }) {
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -13,131 +12,104 @@ function AdvancedSearchFilter({ withClearButton = false }) {
     const location = useLocation();
 
     const { categories } = useSelector((state) => state.categories);
+
     const [brands, setBrands] = useState([]);
     const [models, setModels] = useState([]);
-    const [varients, setVarients] = useState([]);
-    // Local component state for form fields
+    const [variants, setVariants] = useState([]);
+
     const [localCategory, setLocalCategory] = useState('');
     const [localBrand, setLocalBrand] = useState('');
     const [localModel, setLocalModel] = useState('');
-    const [localVarient, setLocalVarient] = useState('');
+    const [localVariant, setLocalVariant] = useState('');
     const [localYear, setLocalYear] = useState('');
-    // const [localPriceRange, setLocalPriceRange] = useState([0, 1000]);
 
-    // Initialize from URL on mount
+    // Set filters from URL params
     useEffect(() => {
         const params = new URLSearchParams(location.search);
+        const initial = {
+            category: params.get('category') || '',
+            brand: params.get('brand') || '',
+            model: params.get('model') || '',
+            variant: params.get('varient') || '',
+            year: params.get('year') || ''
+        };
 
-        const initialCategory = params.get('category') || '';
-        const initialBrand = params.get('brand') || '';
-        const initialModel = params.get('model') || '';
-        const initialVarient = params.get('varient') || '';
-        const initialYear = params.get('year') || '';
+        setLocalCategory(initial.category);
+        setLocalBrand(initial.brand);
+        setLocalModel(initial.model);
+        setLocalVariant(initial.variant);
+        setLocalYear(initial.year);
 
-
-
-        setLocalCategory(initialCategory);
-        setLocalBrand(initialBrand);
-        setLocalModel(initialModel);
-        setLocalVarient(initialVarient);
-        setLocalYear(initialYear);
-
-        dispatch(updateFilters({
-            category: initialCategory,
-            brand: initialBrand,
-            model: initialModel,
-            variant: initialVarient,
-            year: initialYear,
-        }));
+        dispatch(updateFilters(initial));
     }, [location.search, dispatch]);
 
     useEffect(() => {
-        fetchBrands().then((data) => {
-            setBrands(data);
-        });
+        fetchBrands();
     }, []);
 
     useEffect(() => {
-        if (!localBrand) {
-            setModels([]);
-            return;
-        }
-        fetchModels()
+        if (localBrand) fetchModels();
+        else setModels([]);
+        setLocalModel('');
+        setLocalVariant('');
+        setVariants([]);
     }, [localBrand]);
 
-
     useEffect(() => {
-        if (!localModel) {
-            setVarients([]);
-            return;
-        }
-        fetchVarients()
+        if (localModel) fetchVariants();
+        else setVariants([]);
+        setLocalVariant('');
     }, [localModel]);
-
-
 
     const fetchBrands = async () => {
         try {
-            const response = await apiClient.get(`/api/v1/brands`);
-            const data = response.data.contents || [];
-            return data;
-        } catch (error) {
-            console.error(error);
-            return [];
+            const res = await apiClient.get(`/api/v1/brands`);
+            const data = [...new Set(res.data.contents)];
+            setBrands(data || []);
+        } catch (err) {
+            console.error(err);
+            setBrands([]);
         }
     };
 
     const fetchModels = async () => {
         try {
-            const query = `?groupBy=model&brand=${localBrand}`
-            const data = await getProductGrouped(query)
-            setModels(data.contents || [])
-        } catch (error) {
-            console.error(error);
-            setModels([])
+            const res = await apiClient.get(`/api/v1/products/grouped?groupBy=model&brand=${localBrand}&orderBy=createdAt`);
+            const data = [...new Set(res.data.contents)];
+            setModels(data || []);
+        } catch (err) {
+            console.error(err);
+            setModels([]);
         }
     };
 
-    const fetchVarients = async () => {
+    const fetchVariants = async () => {
         try {
-            const query = `?groupBy=variant&brand=${localBrand}&model=${localModel}`
-            const data = await getProductGrouped(query)
-            setVarients(data.contents || [])
-        } catch (error) {
-            console.error(error);
-            setVarients([])
+            const res = await apiClient.get(`/api/v1/products/grouped?groupBy=variant&brand=${localBrand}&model=${localModel}&orderBy=createdAt`);
+            const data = [...new Set(res.data.contents)];
+            setVariants(data || []);
+        } catch (err) {
+            console.error(err);
+            setVariants([]);
         }
     };
-
-    const getProductGrouped = async (query) =>{
-        try{
-            const response = await apiClient.get(`/api/v1/products/grouped${query}&orderBy=createdAt`);
-            return response.data;
-        }catch(error){
-            console.error(error)
-            return [];
-        }
-    }
 
     const handleSearch = () => {
         const params = new URLSearchParams();
-
         if (localCategory) params.append('category', localCategory);
         if (localBrand) params.append('brand', localBrand);
         if (localModel) params.append('model', localModel);
-        if (localVarient) params.append('varient', localVarient);
+        if (localVariant) params.append('varient', localVariant);
         if (localYear) params.append('year', localYear);
 
-        // Dispatch to Redux
         dispatch(updateFilters({
             category: localCategory,
             brand: localBrand,
             model: localModel,
-            variant: localVarient,
+            variant: localVariant,
             year: localYear,
         }));
 
-        // Navigate with URL params
         navigate(`/store?${params.toString()}`);
     };
 
@@ -145,7 +117,7 @@ function AdvancedSearchFilter({ withClearButton = false }) {
         setLocalCategory('');
         setLocalBrand('');
         setLocalModel('');
-        setLocalVarient('');
+        setLocalVariant('');
         setLocalYear('');
 
         dispatch(updateFilters({
@@ -155,32 +127,31 @@ function AdvancedSearchFilter({ withClearButton = false }) {
             variant: '',
             year: '',
         }));
+
         navigate('/store');
     };
-
 
     return (
         <div className="bg-white border rounded-xl shadow-sm p-6 h-auto">
             <h3 className="text-lg font-semibold mb-2">{t('advancedFilter.title')}</h3>
-            <p className="text-sm text-zinc-600 mb-6">
-                {t('advancedFilter.subtitle')}
-            </p>
+            <p className="text-sm text-zinc-600 mb-6">{t('advancedFilter.subtitle')}</p>
 
             <div className="space-y-6 mb-8 mt-10">
                 <select
                     value={localCategory}
                     onChange={(e) => setLocalCategory(e.target.value)}
-                    className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
                 >
                     <option value="">{t('category.label')}</option>
                     {categories.map((c) => (
                         <option key={c.id} value={c.name}>{c.name}</option>
                     ))}
                 </select>
+
                 <select
                     value={localBrand}
                     onChange={(e) => setLocalBrand(e.target.value)}
-                    className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
                 >
                     <option value="">{t('brand.label')}</option>
                     {brands.map((b) => (
@@ -190,8 +161,14 @@ function AdvancedSearchFilter({ withClearButton = false }) {
 
                 <select
                     value={localModel}
-                    onChange={(e) => setLocalModel(e.target.value)}
-                    className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                    onChange={(e) => {
+                        if (!localBrand) {
+                            alert(t('validation.selectBrand'));
+                            return;
+                        }
+                        setLocalModel(e.target.value);
+                    }}
+                    className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
                 >
                     <option value="">{t('model.label')}</option>
                     {models.map((m) => (
@@ -199,28 +176,32 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                     ))}
                 </select>
 
-                <div className="flex gap-1">
+                <div className="flex gap-2">
+                    <select
+                        value={localVariant}
+                        onChange={(e) => {
+                            if (!localModel) {
+                                alert(t('validation.selectModel'));
+                                return;
+                            }
+                            setLocalVariant(e.target.value);
+                        }}
+                        className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
+                    >
+                        <option value="">{t('variant.label')}</option>
+                        {variants.map((v) => (
+                            <option key={v} value={v} translate="no">{v}</option>
+                        ))}
+                    </select>
 
-                <select
-                    value={localVarient}
-                    onChange={(e) => setLocalVarient(e.target.value)}
-                    className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                >
-                    <option value="">{t('variant.label')}</option>
-                    {varients.map((v) => (
-                        <option key={v} value={v} translate="no">{v}</option>
-                    ))}
-                </select>
                     <input
                         type="text"
                         value={localYear}
                         onChange={(e) => setLocalYear(e.target.value)}
-                        className="w-full border border-zinc-300 rounded-md px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                         placeholder={t('year.label')}
+                        className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
                     />
                 </div>
-
-
             </div>
 
             <button
@@ -229,12 +210,15 @@ function AdvancedSearchFilter({ withClearButton = false }) {
             >
                 {t('search.button')}
             </button>
-            {withClearButton && <button
-                onClick={handleClear}
-                className="w-full mt-3 bg-gray-200 hover:bg-gray-300 text-sm font-medium py-3 rounded-md transition"
-            >
-                Clear Filters
-            </button>}
+
+            {withClearButton && (
+                <button
+                    onClick={handleClear}
+                    className="w-full mt-3 bg-gray-200 hover:bg-gray-300 text-sm font-medium py-3 rounded-md transition"
+                >
+                    {t('clear.button')}
+                </button>
+            )}
         </div>
     );
 }
