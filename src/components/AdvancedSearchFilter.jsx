@@ -150,7 +150,13 @@ function AdvancedSearchFilter({ withClearButton = false }) {
 
                 <select
                     value={localBrand}
-                    onChange={(e) => setLocalBrand(e.target.value)}
+                    onChange={(e) => {
+                        setLocalBrand(e.target.value)
+                        setLocalModel('');
+                        setLocalVariant('');
+                        setModels([]);
+                        setVariants([]);
+                    }}
                     className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
                 >
                     <option value="">{t('brand.label')}</option>
@@ -162,15 +168,12 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                 <select
                     value={localModel}
                     onChange={(e) => {
-                        if (!localBrand) {
-                            alert(t('validation.selectBrand'));
-                            return;
-                        }
                         setLocalModel(e.target.value);
                     }}
                     className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
                 >
-                    <option value="">{t('model.label')}</option>
+                    <option value="" hidden>{t('model.label')}</option>
+                    {!localBrand && <option value="">{t('messages.selectBrand')}</option>}
                     {models.map((m) => (
                         <option key={m} value={m} translate="no">{m}</option>
                     ))}
@@ -180,15 +183,12 @@ function AdvancedSearchFilter({ withClearButton = false }) {
                     <select
                         value={localVariant}
                         onChange={(e) => {
-                            if (!localModel) {
-                                alert(t('validation.selectModel'));
-                                return;
-                            }
                             setLocalVariant(e.target.value);
                         }}
                         className="w-full border rounded-md px-3 py-3 text-sm focus:ring-2 focus:ring-red-500"
                     >
-                        <option value="">{t('variant.label')}</option>
+                        <option value="" hidden>{t('variant.label')}</option>
+                        {!localModel && <option value="">{t('messages.selectModel')}</option>}
                         {variants.map((v) => (
                             <option key={v} value={v} translate="no">{v}</option>
                         ))}
