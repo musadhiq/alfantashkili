@@ -21,12 +21,12 @@
   "search": {
     "button": "Search"
   },
-  "messages": {
-    "selectBrandFirst": "Please select a brand first",
-    "selectModelFirst": "Please select a model first"
+  "clear": {
+    "button": "Clear Filters"
   },
-  "filter": {
-    "clear": "Clear Filters"
+  "messages": {
+    "selectBrand": "Please select a brand first",
+    "selectModel": "Please select a model first"
   },
   "hero": {
     "titleFirst": "Parts That Power",
@@ -134,5 +134,9 @@
       "title": "Visit Our Warehouse",
       "address": "Behind Al Maha Mktg. - Al buraimi - S. of Oman"
     }
+  },
+  "fallback":{
+    "heading": "We're updating our stocks",
+    "description": "Please check back later. New products will be available soon!"
   }
 }
